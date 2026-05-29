@@ -17,4 +17,6 @@ tqdm
 typer
 statsmodels
 seaborn
+mlflow
+ipykernel jupyter
 -e .
