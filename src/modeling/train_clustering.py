@@ -21,7 +21,7 @@ def main(
     # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
     features_path: Path = PROCESSED_DATA_DIR / "features_train_cluster.csv",
     labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
-    model_path: Path = MODELS_DIR / "model.pkl",
+    model_path: Path = MODELS_DIR / "model_kmeans.pkl",
     # -----------------------------------------
 ):
 
@@ -39,21 +39,69 @@ def main(
         raise typer.Exit(code=1)
 
     #---------------------------------------------------------------------
-    # 2. Definir o numero ideal de clusters
+    # 2. Pipeline do K-means
     #---------------------------------------------------------------------
-    import sklearn
+    from sklearn.pipeline import make_pipeline
+    from sklearn.cluster import KMeans
+    from sklearn.metrics import silhouette_score
 
-    
-    #---------------------------------------------------------------------
-    # 3. Pipeline do K-means
-    #---------------------------------------------------------------------
-    import sklearn
+    k = 5 # obtido através do gráfico do cotovelo
 
+    # Iniciando MLflow
 
+    with mlflow.start_run(run_name = 'kmeans'):
 
-    #---------------------------------------------------------------------
-    # 4. Treino do modelo
-    #---------------------------------------------------------------------
+        logger.info("Criando o pipeline do modelo.")
+
+        pipeline_kmeans = make_pipeline(
+            KMeans(n_clusters= k, random_state= 0)
+        )
+
+        #---------------------------------------------------------------------
+        # 3. Treino do modelo
+        #---------------------------------------------------------------------
+        import joblib
+
+        pipeline_kmeans.fit(df_processed)
+
+        logger.success("Modelo ajustado.")
+
+        #---------------------------------------------------------------------
+        # 4. Registro das métricas
+        #---------------------------------------------------------------------
+        labels = pipeline_kmeans.named_steps['kmeans'].labels_
+        inercia = pipeline_kmeans.named_steps['kmeans'].inertia_
+
+        logger.info('Calcular a silhueta')
+
+        silhueta = silhouette_score(
+            df_processed, labels, random_state=0
+        )
+
+        # registro dos parametros
+        mlflow.log_param('k_clusters', k)
+        mlflow.log_param('random_state', 0)
+
+        mlflow.log_metric('inertia', inercia)
+        mlflow.log_metric('silhouette', silhueta)
+
+        logger.success('Métricas e Parametros registrados.')
+
+        #---------------------------------------------------------------------
+        # 5. Salvar artefatos locais e MLflow
+        #---------------------------------------------------------------------
+        # salvar o modelo
+        MODELS_DIR.mkdir(parents=True, exist_ok=True)
+        joblib.dump(pipeline_kmeans,  model_path)
+        
+        logger.success("Modelo salvo localmente.")
+        # Salvar artefato do modelo
+        mlflow.log_artifact(
+            local_path= model_path, #oirgem local
+            artifact_path= 'model_artifacts' # servidor
+            )
+        
+        logger.success("Artefatos salvos no servidor")
 
 if __name__ == "__main__":
     app()
