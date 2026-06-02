@@ -19,9 +19,9 @@ app = typer.Typer()
 @app.command()
 def main(
     # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    features_path: Path = PROCESSED_DATA_DIR / "features_train_cluster.csv",
-    labels_path: Path = PROCESSED_DATA_DIR / "labels.csv",
-    model_path: Path = MODELS_DIR / "model_kmeans.pkl",
+    features_path: Path = PROCESSED_DATA_DIR / 'features_train_cluster.csv',
+    labels_path: Path = PROCESSED_DATA_DIR / 'labels.csv',
+    model_path: Path = MODELS_DIR / 'model_kmeans.pkl',
     # -----------------------------------------
 ):
 
@@ -45,16 +45,16 @@ def main(
     from sklearn.cluster import KMeans
     from sklearn.metrics import silhouette_score
 
-    k = 5 # obtido através do gráfico do cotovelo
+    k = 6 # obtido através do gráfico do cotovelo
 
     # Iniciando MLflow
 
     with mlflow.start_run(run_name = 'kmeans'):
 
-        logger.info("Criando o pipeline do modelo.")
+        logger.info('Criando o pipeline do modelo.')
 
         pipeline_kmeans = make_pipeline(
-            KMeans(n_clusters= k, random_state= 0)
+            KMeans(n_clusters= k, random_state= 0, n_init= 10)
         )
 
         #---------------------------------------------------------------------
@@ -64,7 +64,7 @@ def main(
 
         pipeline_kmeans.fit(df_processed)
 
-        logger.success("Modelo ajustado.")
+        logger.success('Modelo ajustado.')
 
         #---------------------------------------------------------------------
         # 4. Registro das métricas
@@ -90,18 +90,25 @@ def main(
         #---------------------------------------------------------------------
         # 5. Salvar artefatos locais e MLflow
         #---------------------------------------------------------------------
+        # salvar os labels
+        df_processed['cluster'] = pipeline_kmeans.named_steps['kmeans'].labels_
+        df_processed.to_csv(labels_path, index=False)
+
+        logger.success(f'Base com clusters salva.')
+
         # salvar o modelo
         MODELS_DIR.mkdir(parents=True, exist_ok=True)
         joblib.dump(pipeline_kmeans,  model_path)
         
-        logger.success("Modelo salvo localmente.")
+        logger.success('Modelo salvo localmente.')
+        
         # Salvar artefato do modelo
         mlflow.log_artifact(
             local_path= model_path, #oirgem local
             artifact_path= 'model_artifacts' # servidor
             )
         
-        logger.success("Artefatos salvos no servidor")
+        logger.success('Artefatos salvos no servidor')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app()
