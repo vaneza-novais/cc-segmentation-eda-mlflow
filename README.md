@@ -58,6 +58,8 @@ Regressão Logística foi o modelo escolhido dado que a sua comparação de dese
 | :--- | :---: | :---: |
 | **Logistic Regression** | 99,37% | 99,40% |
 | **Random Forest** | 95,68% | 95,88% |  
+
+
 Além disso, analisando o gráfico de **Feature Importance**, consegue-se entender como as variáveis predominam na decisão do modelo:
 <img width="3520" height="1684" alt="features_importance" src="https://github.com/user-attachments/assets/b69549a7-df0e-4761-ac3d-a0f63fe81440" />
 * A Frequencia de Compras predomina na decisão do modelo, assim como quase tudo que é relacionado a compras,
