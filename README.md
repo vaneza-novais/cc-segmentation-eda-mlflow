@@ -8,9 +8,7 @@ An end-to-end customer segmentation project using K-Means and PCA on credit card
 
 # Sobre o projeto  
 O objetivo desse projeto é segmentar a base de usuários de cartão de crédito, seguido da predição de classificação de novos usuários.  
-A finalidade original do dataset é definir estratégias de marketing para cada cluster de clientes. Entretanto podem haver outras finalidades, como:
-* 
-
+A finalidade original do dataset é definir estratégias de marketing para cada cluster de clientes. Oportuno frisar, que podem haver outras finalidades.
 O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata).
 
 ### Dicionário das variáveis
@@ -31,7 +29,9 @@ O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/da
 **PAYMENTS** : Valor do pagamento tt  
 **MINIMUM_PAYMENTS** : Valor minimo da fatura  
 **PRCFULLPAYMENT** : Percental de pagamento tt (1=sempre quitou, 0 = nunca quitou tudo)  
-**TENURE** : Tempo de contrato (meses) 
+**TENURE** : Tempo de contrato (meses)  
+
+Algumas variáveis foram removidas através da tecnica VIF, quando seu resultado é de valor maior que 5.
 
 ## Fluxo do Projeto
 Todo o projeto foi estruturado de forma facionada e registrada no MLflow, de modo resumido:  
@@ -50,14 +50,14 @@ Regressão Logística foi o modelo escolhido dado que a sua comparação de dese
 | **Random Forest** | 95,68% | 95,88% |
 Além disso, analisando o gráfico de **Feature Importance**, consegue-se entender como as variáveis predominam na decisão do modelo:
 <img width="3520" height="1684" alt="features_importance" src="https://github.com/user-attachments/assets/b69549a7-df0e-4761-ac3d-a0f63fe81440" />
-* A Frequencia de Compras
-
+* A Frequencia de Compras predomina na decisão do modelo, assim como quase tudo que é relacionado a compras,
+* A caracteristica de menos influencia é o percentual de pagamento total
 
 # Como executar:
-
-
-
-
+1. git clone
+2. pip install -r requirements.txt
+3. mlflow server
+4. http://127.0.0.1:5000 (Link do servidor)
 
 
 ### Project Organization - CookieCutter
