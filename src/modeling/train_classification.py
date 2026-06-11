@@ -22,7 +22,8 @@ def main(
     # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
     prediction_path: Path = PROCESSED_DATA_DIR / 'test_predictions_cluster.csv',
     # labels_path: Path = PROCESSED_DATA_DIR / 'labels.csv',
-    model_path: Path = MODELS_DIR / 'model.pkl',
+    model_path_lr: Path = MODELS_DIR / 'model_lr.pkl',
+    model_path_rf: Path = MODELS_DIR / 'model_rf.pkl',
     # -----------------------------------------
 ):
     
@@ -123,11 +124,11 @@ def main(
         mlflow.log_param('random_state', 0)
         
         # Salvar localmente para uso na predição
-        # joblib.dump(pipeline_score,  model_path)
+        joblib.dump(pipeline_score,  model_path_lr)
 
         # Salvar artefato do modelo
         mlflow.log_artifact(
-            local_path= model_path, #oirgem local
+            local_path= model_path_lr, #oirgem local
             artifact_path= 'model_artifacts' # servidor
             )
         
@@ -185,11 +186,11 @@ def main(
         mlflow.log_param('random_state', 0)
         
         # Salvar localmente para uso na predição
-        # joblib.dump(pipeline_score,  model_path)
+        joblib.dump(pipeline_score,  model_path_rf)
 
         # Salvar artefato do modelo
         mlflow.log_artifact(
-            local_path= model_path, #oirgem local
+            local_path= model_path_rf, #oirgem local
             artifact_path= 'model_artifacts' # servidor
             )
         
