@@ -39,7 +39,17 @@ Algumas variáveis foram removidas através da tecnica VIF, quando seu resultado
 
 # Cluster descobertos
 Com a aplicação do K-Means, obteve-se a seguinte segmentação dos clientes:  
-* 
+| Cluster | Nome do Perfil | Estratégia de Abordagem |
+| :---: | :--- | :--- |
+| **0** | **Clientes Conservadores** | Faça uma comunicação transparente e prática, apresentando cases de sucesso, destacando o custo beneficio e confiabilidade do serviço de cartão de crédito. |
+| **1** | **Clientes Dependentes de Crédito/Empréstimo** | Ofereça aprovação facilitada, focada na baixa burocracia assim como o atendimento prático para renegociação de dívidas e ferramentas de controle total do limite. |
+| **2** | **Clientes de Alto Valor** | Fidelize esse cliente com programas de pontuação, benefícios de cliente VIP, categorias de cartão exclusivas e sempre ofereça um limite alto. |
+| **3** | **Clientes Engajados** | Ofereça campanhas de incentivo para uso do cartão, assim como vantagens no parcelamento e pagamento antecipado. |
+| **4** | **Clientes em Risco Financeiro** | Realize cobranças preventivas como lembrete em paralelo ao envio de conteúdos acerca de educação financeira e incentivo de pagamento correto, e aplique a redução sutil do limite conforme o risco aumenta. |
+| **5** | **Clientes de Baixo Engajamento** | Desenvolva campanhas de descontos e pagamentos simplificados, implante a comunicação direta além de redução severa do limite ao mínimo possível, para evitar novas compras. |
+
+<img width="2090" height="1451" alt="image" src="https://github.com/user-attachments/assets/dd20c97b-7918-496d-be78-111a850c487b" />
+
 
 # Aplicação em produção
 Para definição de cluster de novos clientes, será utilizado o modelo de Regressão Logística, no qual a variável target é o cluster já descoberto.
