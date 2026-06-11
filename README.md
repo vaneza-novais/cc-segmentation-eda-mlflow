@@ -11,6 +11,10 @@ O objetivo desse projeto é segmentar a base de usuários de cartão de crédito
 A finalidade original do dataset é definir estratégias de marketing para cada cluster de clientes. Oportuno frisar, que podem haver outras finalidades.
 O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata).
 
+## Fluxo do Projeto
+Todo o projeto foi estruturado de forma facionada e registrada no MLflow, de modo resumido:  
+Dados Brutos ➔ Tratamento/Pipelines ➔ Clusterização (K-Means) ➔ Classificação (Regressão Logística) ➔ MLflow
+
 ### Dicionário das variáveis
 **CUST_ID** : ID do titular - Categórica  
 **BALANCE** : Saldo devedor atual  
@@ -33,13 +37,9 @@ O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/da
 
 Algumas variáveis foram removidas através da tecnica VIF, quando seu resultado é de valor maior que 5.
 
-## Fluxo do Projeto
-Todo o projeto foi estruturado de forma facionada e registrada no MLflow, de modo resumido:  
-Dados Brutos ➔ Tratamento/Pipelines ➔ Clusterização (K-Means) ➔ Classificação (Regressão Logística) ➔ MLflow
-
 # Cluster descobertos
-Com a aplicação do K-Means, obteve-se a seguinte segmentação dos clientes:
-
+Com a aplicação do K-Means, obteve-se a seguinte segmentação dos clientes:  
+* 
 
 # Aplicação em produção
 Para definição de cluster de novos clientes, será utilizado o modelo de Regressão Logística, no qual a variável target é o cluster já descoberto.
@@ -47,7 +47,7 @@ Regressão Logística foi o modelo escolhido dado que a sua comparação de dese
 | Modelo | F1-Score | Precisão |
 | :--- | :---: | :---: |
 | **Logistic Regression** | 99,37% | 99,40% |
-| **Random Forest** | 95,68% | 95,88% |
+| **Random Forest** | 95,68% | 95,88% |  
 Além disso, analisando o gráfico de **Feature Importance**, consegue-se entender como as variáveis predominam na decisão do modelo:
 <img width="3520" height="1684" alt="features_importance" src="https://github.com/user-attachments/assets/b69549a7-df0e-4761-ac3d-a0f63fe81440" />
 * A Frequencia de Compras predomina na decisão do modelo, assim como quase tudo que é relacionado a compras,
