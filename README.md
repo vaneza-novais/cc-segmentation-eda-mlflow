@@ -6,7 +6,61 @@
 
 An end-to-end customer segmentation project using K-Means and PCA on credit card usage data, fully tracked with MLflow.
 
-## Project Organization
+# Sobre o projeto  
+O objetivo desse projeto é segmentar a base de usuários de cartão de crédito, seguido da predição de classificação de novos usuários.  
+A finalidade original do dataset é definir estratégias de marketing para cada cluster de clientes. Entretanto podem haver outras finalidades, como:
+* 
+
+O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata).
+
+### Dicionário das variáveis
+**CUST_ID** : ID do titular - Categórica  
+**BALANCE** : Saldo devedor atual  
+**BALANCE_FREQUENCY** : Com que frequencia o saldo devedor é atualizado? Entre 0 e 1 (1 = frequently updated, 0 = not frequently updated)  
+**PURCHASES** : Valor de compras feitas na conta  
+**ONEOFF_PURCHASES** : Valor máximo de compra realizado a vista  
+**INSTALLMENTS_PURCHASES** : Valor de compra feita em parcelas  
+**CASH_ADVANCE** : Valor retirado em pagamentos antecipados (emprestimos, saques)  
+**PURCHASES_FREQUENCY** : Com que frequencia as compras tem sendo feitas? Entre 0 e 1 (1 = frequently purchased, 0 = not frequently purchased)  
+**ONEOFFPURCHASESFREQUENCY** : Com que frequencia as compras são a vista? (1 = frequently purchased, 0 = not frequently purchased)  
+**PURCHASESINSTALLMENTSFREQUENCY** : Com que frequencia as compras parceladas são feitas (1 = frequently done, 0 = not frequently done)  
+**CASHADVANCEFREQUENCY** : Com que frequencia o emprestimo/saque é feito  
+**CASHADVANCETRX** : Qntd de emprestimos/saque  
+**PURCHASES_TRX** : Qntd de transacoẽs de compras feitas  
+**CREDIT_LIMIT** : Limite do cartão de credito para o usuário  
+**PAYMENTS** : Valor do pagamento tt  
+**MINIMUM_PAYMENTS** : Valor minimo da fatura  
+**PRCFULLPAYMENT** : Percental de pagamento tt (1=sempre quitou, 0 = nunca quitou tudo)  
+**TENURE** : Tempo de contrato (meses) 
+
+## Fluxo do Projeto
+Todo o projeto foi estruturado de forma facionada e registrada no MLflow, de modo resumido:  
+Dados Brutos ➔ Tratamento/Pipelines ➔ Clusterização (K-Means) ➔ Classificação (Regressão Logística) ➔ MLflow
+
+# Cluster descobertos
+Com a aplicação do K-Means, obteve-se a seguinte segmentação dos clientes:
+
+
+# Aplicação em produção
+Para definição de cluster de novos clientes, será utilizado o modelo de Regressão Logística, no qual a variável target é o cluster já descoberto.
+Regressão Logística foi o modelo escolhido dado que a sua comparação de desempenho com o Random Forest obteve melhor resultado.
+| Modelo | F1-Score | Precisão |
+| :--- | :---: | :---: |
+| **Logistic Regression** | 99,37% | 99,40% |
+| **Random Forest** | 95,68% | 95,88% |
+Além disso, analisando o gráfico de **Feature Importance**, consegue-se entender como as variáveis predominam na decisão do modelo:
+<img width="3520" height="1684" alt="features_importance" src="https://github.com/user-attachments/assets/b69549a7-df0e-4761-ac3d-a0f63fe81440" />
+* A Frequencia de Compras
+
+
+# Como executar:
+
+
+
+
+
+
+### Project Organization - CookieCutter
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
