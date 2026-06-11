@@ -13,7 +13,7 @@ O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/da
 
 ## Fluxo do Projeto
 Todo o projeto foi estruturado de forma facionada e registrada no MLflow, de modo resumido:  
-Dados Brutos ➔ Tratamento/Pipelines ➔ Clusterização (K-Means) ➔ Classificação (Regressão Logística) ➔ MLflow
+Dados Brutos ➔ Tratamento/Pipelines ➔ Clusterização (K-Means) ➔ Cross Validation de Classificação (Regressão Logística vs. Random Forest) ➔ MLflow
 
 ### Dicionário das variáveis
 **CUST_ID** : ID do titular - Categórica  
@@ -58,6 +58,10 @@ Regressão Logística foi o modelo escolhido dado que a sua comparação de dese
 | :--- | :---: | :---: |
 | **Logistic Regression** | 99,37% | 99,40% |
 | **Random Forest** | 95,68% | 95,88% |  
+
+
+O Modelo de Regressão Logistica apresentou um desempenho excelente, dado que houve a aplicação de um modelo não supervisionado e as variáveis foram escalonadas com as transformações Logarítmicas e Quantil.
+<img width="1645" height="880" alt="image" src="https://github.com/user-attachments/assets/15a23ce9-0dfd-4bd6-9c77-18b667519b12" />
 
 
 Além disso, analisando o gráfico de **Feature Importance**, consegue-se entender como as variáveis predominam na decisão do modelo:
