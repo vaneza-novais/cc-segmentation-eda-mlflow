@@ -9,7 +9,8 @@ An end-to-end customer segmentation project using K-Means and PCA on credit card
 # Sobre o projeto  
 O objetivo desse projeto é segmentar a base de usuários de cartão de crédito, seguido da predição de classificação de novos usuários.  
 A finalidade original do dataset é definir estratégias de marketing para cada cluster de clientes. Oportuno frisar, que podem haver outras finalidades.
-O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata).
+O dataset utilizado se encontra disponivel no [kaggle](https://www.kaggle.com/datasets/arjunbhasin2013/ccdata).  
+No [Medium](https://medium.com/@vaneza-n/progredindo-em-machine-learning-df932a40fedd) está disponivel o artigo técnico do projeto.  
 
 ## Fluxo do Projeto
 Todo o projeto foi estruturado de forma facionada e registrada no MLflow, de modo resumido:  
